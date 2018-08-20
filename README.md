@@ -30,4 +30,4 @@ First test on my machine produced those results (rounded up to 4th decimal place
 Second test produced following graph:
 ![alt text](https://github.com/jakubzimny/Sorting-algorithms/blob/master/graph.png "Sorting algorithms comparison graph")
 
-I'm quite suprised how well Shellsort and how mediocre Merge sort did (since it should be O(nlogn) for every case) but my implementation may be suboptimal.
+I'm quite surprised how well Shellsort and how mediocre Merge sort did (since it should be O(nlogn) for every case) but my implementation may be suboptimal.
