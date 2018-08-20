@@ -69,19 +69,11 @@ def merge_sort(arr, begin = 0, end = None):
 ### INSERTION SORT ###
 
 def insertion_sort(arr):
-    sorted_arr = []
-    sorted_arr.append(arr[0])
-    inserted = False
     for i in range(1,len(arr)):
-        for j in range(0,len(sorted_arr)):
-            if arr[i] <= sorted_arr[j]:
-                sorted_arr.insert(j,arr[i])
-                inserted = True
-                break
-        if inserted == False:
-            sorted_arr.append(arr[i])
-        inserted = False
-    return sorted_arr
+        j = i
+        while j > 0 and arr[j-1] > arr[j]:
+            arr[j-1], arr[j] = arr[j], arr[j-1]
+            j -= 1
 
 ### SELECTION SORT ###
 
@@ -95,7 +87,7 @@ def selection_sort(arr):
             arr[i], arr[min_el_index] = arr[min_el_index], arr[i]
 
 
-### HEAP SORT ### 
+### HEAPSORT ### 
 
 def max_child(index, size, heap):
     if index * 2 + 1 > size:
@@ -120,7 +112,7 @@ def build_heap(arr):
         index -= 1
     
 
-def heap_sort(arr):
+def heapsort(arr):
     build_heap(arr)
     size = len(arr) - 1
     for i in range(size, 1, -1):
@@ -129,8 +121,20 @@ def heap_sort(arr):
         shift_down(1,size,arr) 
     arr = arr[1:]
 
+
 ### SHELL SORT ###
 
+def shell_sort(arr):
+    distances = [1750,701,301,132,57,23,19,4,1]  # Marcin Ciura's sequence
+    size = len(arr)
+    for distance in distances:
+        for i in range(distance, size):
+            temp = arr[i]
+            j = i
+            while j >= distance and arr[j - distance] > temp:
+                arr[j] = arr[j - distance]
+                j -= distance
+            arr[j] = temp
 
 
 ### BUBBLE SORT ###
