@@ -102,27 +102,27 @@ class BinaryHeap:
         self.heap_list = [0]
         self.size = 0
     
-    def percolate_up(self, index):
+    def shift_up(self, index):
         while index // 2 > 0:
             if self.heap_list[index] > self.heap_list[index // 2]:
                 self.heap_list[index], self.heap_list[index // 2] = self.heap_list[index // 2], self.heap_list[index]
-            index = index // 2
+            index //= 2
 
     def insert(self, element):
         self.heap_list.append(element)
-        self.size = self.size + 1
-        self.percolate_up(self.size)
+        self.size += 1
+        self.shift_up(self.size)
     
-    def min_child(self, index):
+    def max_child(self, index):
         if index * 2 + 1 > self.size:
-            return i * 2
+            return index * 2
         else: 
-            return index * 2 if self.heap_list[index*2] <= self.heap_list[index*2 + 1] else index * 2 + 1
+            return index * 2 if self.heap_list[index * 2] > self.heap_list[index * 2 + 1] else index * 2 + 1
 
-    def percolate_down(self, index):
+    def shift_down(self, index):
         while index * 2 <= self.size:
-            mc = self.min_child(index)
-            if self.heap_list[index] <= self.heap_list[mc]:
+            mc = self.max_child(index)
+            if self.heap_list[index] > self.heap_list[mc]:
                 return
             self.heap_list[index], self.heap_list[mc] = self.heap_list[mc], self.heap_list[index]
             index = mc
@@ -131,10 +131,26 @@ class BinaryHeap:
         root_value = self.heap_list[1]
         self.heap_list[1] = self.heap_list[self.size]
         self.heap_list.pop()
-        self.size = self.size - 1
-        self.percolate_down(1)
+        self.size -= 1
+        self.shift_down(1)
         return root_value
 
+    def build(self, arr):
+        self.size = len(arr)
+        self.heap_list = [0] + arr
+        index = self.size // 2
+        while index > 0:
+            self.shift_down(index)
+            index -= 1
+
+def heap_sort(arr):
+    heap = BinaryHeap()
+    heap.build(arr)
+    for i in range(heap.size, 1, -1):
+        heap.heap_list[1], heap.heap_list[i] = heap.heap_list[i], heap.heap_list[1]
+        heap.size -= 1
+        heap.shift_down(1) 
+    return heap.heap_list
 
 ### SHELL SORT ###
 
@@ -160,49 +176,52 @@ if __name__ == "__main__":
     # list3 = [7,6,5,4,3,2,1]
     # bubble_sort(list1)
     # print(list1)
+    bh = BinaryHeap()
+    bh.build([0,1,4,14,51,2,7,9,5,2,91,0,53,-2,892,-53,9,12])
+    print(bh.heap_list)
+    print(heap_sort([0,1,4,14,51,2,7,9,5,2,91,0,53,-2,892,-53,9,12]))
+    # it = 100
+    # tQS = [0] * it
+    # tBubble = [0] * it
+    # tMS = [0] * it
+    # tIS = [0] * it
+    # tSS = [0] * it
+    # for i in range(0,it):
+    #     list1 = [random.randint(0,1000) for i in range(1000)]
+    #     list2 = list1.copy()
+    #     list3 = list1.copy()
+    #     list4 = list1.copy()
+    #     list5 = list1.copy()
 
-    it = 100
-    tQS = [0] * it
-    tBubble = [0] * it
-    tMS = [0] * it
-    tIS = [0] * it
-    tSS = [0] * it
-    for i in range(0,it):
-        list1 = [random.randint(0,1000) for i in range(1000)]
-        list2 = list1.copy()
-        list3 = list1.copy()
-        list4 = list1.copy()
-        list5 = list1.copy()
+    #     t0 = time.clock()
+    #     quicksort(list1)
+    #     t1 = time.clock()
+    #     tQS[i] = t1 - t0 
 
-        t0 = time.clock()
-        quicksort(list1)
-        t1 = time.clock()
-        tQS[i] = t1 - t0 
+    #     t0 = time.clock()
+    #     bubble_sort(list2)
+    #     t1 = time.clock()
+    #     tBubble[i] = t1 - t0
 
-        t0 = time.clock()
-        bubble_sort(list2)
-        t1 = time.clock()
-        tBubble[i] = t1 - t0
+    #     t0 = time.clock()
+    #     merge_sort(list3)
+    #     t1 = time.clock()
+    #     tMS[i] = t1 - t0
 
-        t0 = time.clock()
-        merge_sort(list3)
-        t1 = time.clock()
-        tMS[i] = t1 - t0
+    #     t0 = time.clock()
+    #     insertion_sort(list4)
+    #     t1 = time.clock()
+    #     tIS[i] = t1 - t0
 
-        t0 = time.clock()
-        insertion_sort(list4)
-        t1 = time.clock()
-        tIS[i] = t1 - t0
+    #     t0 = time.clock()
+    #     selection_sort(list5)
+    #     t1 = time.clock()
+    #     tSS[i] = t1 - t0
 
-        t0 = time.clock()
-        selection_sort(list5)
-        t1 = time.clock()
-        tSS[i] = t1 - t0
+    #     print(i)
 
-        print(i)
-
-    print ("Quicksort average = " + str(sum(tQS)/it))
-    print ("Bubble sort average = " + str(sum(tBubble)/it))
-    print ("Merge sort average = " + str(sum(tMS)/it))
-    print ("Insertion sort average = " + str(sum(tIS)/it))
-    print("Selection sort average = " + str(sum(tSS)/it))
+    # print ("Quicksort average = " + str(sum(tQS)/it))
+    # print ("Bubble sort average = " + str(sum(tBubble)/it))
+    # print ("Merge sort average = " + str(sum(tMS)/it))
+    # print ("Insertion sort average = " + str(sum(tIS)/it))
+    # print("Selection sort average = " + str(sum(tSS)/it))
