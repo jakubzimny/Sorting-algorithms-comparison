@@ -28,3 +28,4 @@ First test on my machine produced those results (rounded up to 4th decimal place
 7. Bubble sort average = 2.0728 s**
 
 Second test produced following graph:
+![alt text](https://github.com/jakubzimny/Sorting-algorithms/blob/master/graph.png "Sorting algorithms comparison graph")
