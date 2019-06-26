@@ -12,7 +12,7 @@ I tested 7 different algorithms:
 6. Shellsort (using Marcin Ciura's sequence)  
 7. Bubble sort**  
 
-with 2 tests, first was taking an average of 100 sorts of randomized arrays with 5000 randomized elements, second was mapping sorting time to size of an array to reveal differences in their complexity.
+with 2 tests, first was taking an average of 100 sorts of randomized arrays with 5000 elements, second was mapping sorting time to size of an array to reveal differences in their complexity.
 
 *Important note: Both tests used time.clock() function which returns real time instead of cpu time on windows, so they're just an aproximation.*
 
